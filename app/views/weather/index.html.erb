@@ -1,0 +1,11 @@
+<div class='bg-blue-200 flex flex-col h-full w-full justify-between items-center flex-grow'>
+  <div class='flex-grow flex flex-col items-center justify-center p-4 max-w-2xl'>
+    <img src=<%= asset_path("clouds.png") %>>
+    <p class='my-6 text-center text-gray-600'>See what the weather is like in your city today!</p>
+    <%= render partial: 'form' %>
+  </div>
+  
+  <footer class='text-center py-12 bg-white w-full text-sm rounded-tl-[20%] rounded-tr-[20%] text-gray-400'>
+    @ Clouds Inc <%= current_year %>. Weather data is sourced from <a href="https://home.openweathermap.org/" class='underline'>openWeather.com</a
+  </footer>
+  </div>

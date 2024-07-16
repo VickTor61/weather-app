@@ -1,0 +1,11 @@
+<%= form_with url: weather_path, class: "flex flex-col items-center relative w-full", method: :get, local: true do |f| %>
+  <div class='relative w-full'>
+    <%= f.text_field :city, class: "rounded-full w-full pl-10 pr-4 py-2 placeholder-rightl placeholder-gray-400 focus:border-2 border-gray-400 focus:border-gray-500 focus:ring-0", placeholder: "Search for city" %>
+    <i class="fas fa-search text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+  </div>
+  <%= f.submit "Get Weather", class: "block bg-black-500 mt-4 text-white py-2 px-4 rounded-full bg-gray-800 cursor-pointer" %>
+  
+  <% if flash[:alert] %>
+    <%= render partial: 'error' %>
+  <% end %>
+<% end %>

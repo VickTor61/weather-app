@@ -1,0 +1,10 @@
+<ul class="flex items-center justify-center rounded-full bg-white mb-8 px-4 overflow-hidden py-4 min-w-sm">
+    <% hourly_data.each do |hour| %>
+      <li class="flex flex-col items-center justify-center md:mx-2 md:my-2">
+        <p><%= hour["temp"].to_i %>°</p>
+        <% icon_code = hour["weather"][0]["icon"] %>
+        <img src="http://openweathermap.org/img/wn/<%= icon_code %>@2x.png" alt="Weather icon">
+        <p class='text-xs md:text-base'><%= Time.at(hour["dt"]).strftime("%H:%M") %></p>
+      </li>
+    <% end %>
+  </ul>

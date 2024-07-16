@@ -1,0 +1,23 @@
+﻿<div class='h-full p-6 flex flex-col justify-between items-center' style="background: <%= dynamic_bg_class(@weather["current"]["weather"][0]["main"].downcase) %>">
+  <header class='w-full grid grid-cols-2 lg:grid-cols-3 items-center lg:items-center py-4'>
+    <a href="<%= root_path %>" class="flex col-span-1 items-center">
+      <i class="fas fa-arrow-left text-2xl"></i>
+      <span class="hidden md:inline text-lg ml-2">Check Weather</span>
+    </a>
+    <div class="col-span-3 lg:col-span-2 flex flex-col lg:grid lg:grid-cols-2 items-center lg:items-start">
+      <h1 class='text-l md:text-xl rounded-full bg-white px-6 py-3 lg:place-self-center'>
+        <i class="fas fa-map-marker-alt text-blue-400 px-2"></i> <%= city_location(@weather["country"]) %>
+      </h1>
+      <p class="text-sm md:text-base mt-2 lg:mt-0 lg:text-right lg:self-center"><%= date_time %></p>
+    </div>
+  </header>
+
+  <div class='text-center'>
+    <p>Good <%= time_of_day %>!</p>
+    <p class='text-6xl my-8'> <%= @weather['current']['temp'].to_i %>°</p>
+    <p class='text-2xl font-medium'> <%= @weather['current']['weather'][0]['description'] %></p>
+    <span>High: <%= @weather["daily"][0]["temp"]["max"].to_i %>° Low: <%= @weather["daily"][0]["temp"]["min"].to_i %>°</span>
+  </div>
+
+  <%= render partial: 'weather_hours', locals: { hourly_data: @weather["hourly"]} %>
+</div>
