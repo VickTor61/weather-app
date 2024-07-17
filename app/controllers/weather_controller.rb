@@ -13,11 +13,11 @@ class WeatherController < ApplicationController
       redirect_to root_path
     end
   end
-end
 
-private
+  private
 
-def check_city_params
-  @city = params[:city]
-  redirect_to root_path, alert: "Please enter a city name" if @city.blank?
+  def check_city_params
+    @city = params[:city]
+    redirect_to root_path, alert: "Please enter a city name" if @city.blank?
+  end
 end

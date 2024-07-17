@@ -68,11 +68,10 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'webmock'
 end
 
 gem "dotenv-rails", "~> 3.1"
-
-gem "active_model_serializers", "~> 0.10.0"
 
 gem "tailwindcss-rails", "~> 2.6"
 
