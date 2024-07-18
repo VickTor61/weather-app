@@ -8,20 +8,19 @@ class WeatherService
 
   def fetch_weather
     coordinates = get_coordinates
-    return { "code" => "404" } unless coordinates
+    return { "code" => :not_found } unless coordinates
 
     lat = coordinates["lat"]
     lon = coordinates["lon"]
     country = coordinates["country"]
     weather_data = self.class.get("/data/3.0/onecall", query: { lat: lat, lon: lon, exclude: "minutely,alerts", units: "metric", appid: fetch_api_key }).parsed_response
-    processed_weather_data = process_weather_data(weather_data, country)
-    processed_weather_data
+    process_weather_data(weather_data, country)
   end
 
   private
 
   def fetch_api_key
-    ENV["OPENWEATHER_API_KEY"]
+   ENV["OPENWEATHER_API_KEY"]
   end
 
   def get_coordinates
