@@ -1,5 +1,4 @@
 require "test_helper"
-require "minitest/autorun"
 
 class WeatherControllerTest < ActionController::TestCase
   test "#index should render the index template and show the texts in it" do
@@ -14,17 +13,40 @@ class WeatherControllerTest < ActionController::TestCase
     assert_equal "Please enter a city name", flash[:alert]
   end
 
-  # <************  I HAVEN'T BEEN ABLE TO SUCCESSFULLY MOCK THIS ******************** *>
+  test "it should render the show page when city is found" do
+    city = "London"
+    mock_weather_data = {
+      "current" => {
+        "weather" => [{
+          "main" => "clouds",
+        }],
+      },
+      "hourly" => [{ "temp" => "20", "dt" => 1721318400, "weather" => [{
+        "icon" => "02d",
+      }] }],
+      "daily" => [{ "temp" => { "day" => 20 } }],
+      "country" => "GB",
+    }
+
+    mock_service = mock("weather_service")
+    mock_service.expects(:fetch_weather).returns(mock_weather_data)
+    WeatherService.expects(:new).with(city).returns(mock_service)
+
+    get :show, params: { city: city }
+
+    assert_response :success
+    assert_select "h1", "#{mock_weather_data["country"]}, #{city}"
+  end
   test "should redirect to root_path with alert if weather for city is not found" do
-    weather_service_mock = Minitest::Mock.new
-    weather_service = WeatherService.new weather_service_mock
+    city = "NonExistentCity"
 
-    @controller.stub(:weather_service, weather_service_mock) do
-      get :show, params: { city: "NonExistentCity" }
-      assert_redirected_to root_path
-      assert_equal "Weather for NonExistentCity not found.", flash[:alert]
-    end
+    mock_service = mock("weather_service")
+    mock_service.expects(:fetch_weather).returns(nil)
+    WeatherService.expects(:new).with(city).returns(mock_service)
 
-    weather_service_mock.verify
+    get :show, params: { city: city }
+
+    assert_redirected_to root_path
+    assert_equal "Weather for #{city} not found.", flash[:alert]
   end
 end

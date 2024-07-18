@@ -3,6 +3,7 @@ require_relative "../config/environment"
 require "rails/test_help"
 require 'minitest/mock'
 require 'webmock/minitest'
+require "mocha/minitest"
 
 
 module ActiveSupport

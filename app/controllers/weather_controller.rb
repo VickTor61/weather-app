@@ -8,7 +8,7 @@ class WeatherController < ApplicationController
     weather_service = WeatherService.new(@city)
     @weather = weather_service.fetch_weather
 
-    if @weather["code"] == "404"
+    if @weather.nil? || @weather["code"] == "404"
       flash[:alert] = "Weather for #{@city} not found."
       redirect_to root_path
     end
