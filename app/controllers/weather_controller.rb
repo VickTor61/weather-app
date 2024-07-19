@@ -22,6 +22,8 @@ class WeatherController < ApplicationController
   end
 
   def validate_api_key
-    redirect_to root_path, notice: "Please provide a valid API key" if ENV["OPENWEATHER_API_KEY"].nil?
+    ENV.fetch("OPENWEATHER_API_KEY") do
+      redirect_to root_path, notice: "Please provide a valid API key"
+    end
   end
 end

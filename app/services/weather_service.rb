@@ -20,7 +20,7 @@ class WeatherService
   private
 
   def fetch_api_key
-   ENV["OPENWEATHER_API_KEY"]
+   ENV.fetch("OPENWEATHER_API_KEY")
   end
 
   def get_coordinates
