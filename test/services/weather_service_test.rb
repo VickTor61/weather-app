@@ -41,7 +41,7 @@ class WeatherServiceTest < Minitest::Test
 
       result = @service.fetch_weather
 
-      assert_equal "404", result["code"]
+      assert_equal :not_found, result["code"]
     end
   end
 end

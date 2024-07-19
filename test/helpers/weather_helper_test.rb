@@ -3,17 +3,17 @@ require "test_helper"
 class WeatherHelperTest < ActionView::TestCase
   include WeatherHelper
 
-  test "#date_time returns the correct format" do
+  test "#formatted_date_time returns the correct format" do
     travel_to Time.new(2024, 7, 16, 14, 23, 0) do
       expected_format = "14:23・Tuesday, 16 July 2024"
-      assert_equal expected_format, date_time
+      assert_equal expected_format, formatted_date_time
     end
   end
 
-  test "#date_time refutes an incorrect format" do
+  test "#formatted_date_time refutes an incorrect format" do
     travel_to Time.new(2024, 7, 16, 14, 23, 0) do
       invalid_format = "14-23・Tuesday, 16th July 2024"
-      refute_equal invalid_format, date_time
+      refute_equal invalid_format, formatted_date_time
     end
   end
 

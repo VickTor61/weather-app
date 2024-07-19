@@ -1,7 +1,7 @@
 module WeatherHelper
-  def date_time
+  def formatted_date_time
     now = Time.now
-    now.strftime("%H:%M・%A, %e %B %Y").gsub(/(\d+)\s(\w+)/, '\1 \2')
+    now.strftime("%H:%M・%A, %e %B %Y")
   end
 
   def current_year

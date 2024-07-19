@@ -5,7 +5,7 @@
   </div>
   <%= f.submit "Get Weather", class: "block bg-black-500 mt-4 text-white py-2 px-4 rounded-full bg-gray-800 cursor-pointer" %>
   
-  <% if flash[:alert] %>
+  <% if flash[:notice] %>
     <%= render partial: 'error' %>
   <% end %>
 <% end %>

@@ -10,9 +10,16 @@ class WeatherControllerTest < ActionController::TestCase
   test "#show should redirect to root path when city is blank" do
     get :show
     assert_redirected_to root_path
-    assert_equal "Please enter a city name", flash[:alert]
+    assert_equal "Please enter a city name", flash[:notice]
   end
 
+  test "#show should redirect to root path when no api key is provided with a notice" do
+    ENV["OPENWEATHER_API_KEY"] = nil
+    get :show, params: { city: "some" }
+
+    assert_redirected_to root_path
+    assert_equal "Please provide a valid API key", flash[:notice]
+  end
   test "it should render the show page when city is found" do
     city = "London"
     mock_weather_data = {
@@ -47,6 +54,6 @@ class WeatherControllerTest < ActionController::TestCase
     get :show, params: { city: city }
 
     assert_redirected_to root_path
-    assert_equal "Weather for #{city} not found.", flash[:alert]
+    assert_equal "Weather for #{city} not found.", flash[:notice]
   end
 end
